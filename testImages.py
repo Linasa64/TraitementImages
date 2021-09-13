@@ -20,22 +20,26 @@ img = io.imread("image2_reference.png")
 #             else:
 #                 img[line, col] = 255
 
-# ALGO BRUIT ADDITIF
-for line in range(len(img)):
-    for col in range(len(img)):
-        if (randint(1, 100) == 1):
-            img[line, col] = img[line, col] + 20
-            if (img[line, col]>255):
-              img[line, col] = 255
-
-                
-# # ALGO BRUIT MULTIPLICATIF
+# # ALGO BRUIT ADDITIF
 # for line in range(len(img)):
 #     for col in range(len(img)):
 #         if (randint(1, 2) == 1):
-#             img[line, col] = img[line, col] * (1+2)
-#             if (img[line, col]>255):
-#               img[line, col] = 255                 
+#             if (img[line, col] - 50 < 0):
+#               img[line, col] = 0
+#             else :
+#                 img[line, col] = img[line, col] - 50
+
+
+                
+# ALGO BRUIT MULTIPLICATIF
+for line in range(len(img)):
+    for col in range(len(img)):
+        if (randint(1, 3) == 1):
+            if (img[line, col] * (1-1.5)<0):
+                img[line, col] = 0
+            else :
+                img[line, col] = img[line, col] * (1-1.5)
+    
 
 
 # #CALCUL SNR
