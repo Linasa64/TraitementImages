@@ -60,7 +60,7 @@ pBruit = 0
 
 for line in range(len(imgBruit)):
     for col in range(len(imgBruit)):
-        pSignal = pSignal + imgBruit[line, col]**2
+        pSignal = pSignal + imgBruit[line, col]*imgBruit[line, col]
         pBruit = pBruit + (imgRef[line, col]-imgBruit[line, col])*(imgRef[line, col]-imgBruit[line, col])
         
         
