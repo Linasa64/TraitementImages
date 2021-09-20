@@ -47,28 +47,25 @@ img = io.imread("image2_reference.png")
 
 #CALCUL SNR
 
-from numpy import log10, errstate, float64
+from math import log, log10
 
-with errstate(divide='ignore'):
-    float64(1.0)/0.0
 
 imgRef = io.imread("image1_reference.png")
-imgBruit = io.imread("image1_bruitee_snr_9.2885.png")
+imgBruit = io.imread("image1_bruitee_snr_10.8656.png")
 
 pSignal = 0
 pBruit = 0
 
-for line in range(len(imgBruit)):
-    for col in range(len(imgBruit)):
-        pSignal = pSignal + imgBruit[line, col]*imgBruit[line, col]
-        pBruit = pBruit + (imgRef[line, col]-imgBruit[line, col])*(imgRef[line, col]-imgBruit[line, col])
+for line in range(0, len(imgBruit)):
+    for col in range(0, len(imgBruit)):
+        pSignal = pSignal + int(imgRef[line, col])**2
+        pBruit = pBruit + (int(imgBruit[line, col])-int(imgRef[line, col]))**2
         
-        
-print(pSignal)
-print(pBruit)
-snr = 10*log10(pSignal/pBruit)
 
-print("Résultat : ", snr)
+print("pSignal : ", pSignal)
+print("pBruit : ", pBruit)
+snr = 10*log((pSignal/pBruit), 10)
+print("SNR: ", snr)
 
 
 # #Affichage
