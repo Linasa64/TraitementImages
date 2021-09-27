@@ -49,7 +49,6 @@ img = io.imread("image2_reference.png")
 
 from math import log, log10
 
-
 imgRef = io.imread("image1_reference.png")
 imgBruit = io.imread("image1_bruitee_snr_10.8656.png")
 
