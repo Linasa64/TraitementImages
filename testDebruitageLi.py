@@ -23,18 +23,10 @@ def moyenne_pixels(x, y):
     for line in range((x-1), (x+2)):
         for col in range((y-1), (y+2)):
             sum = sum + int(img[line, col])
-    res = sum - int(img[x, y])
+    sum = sum - int(img[x, y])
     res = sum/8
     return res
 
-
-def afficherCarrePixels(x, y):
-    for line in range((x-1), (x+2)):
-        for col in range((y-1), (y+2)): 
-            print(img[line, col])
-
-# print(moyenne_pixels(10, 10))
-# afficherCarrePixels(10, 10)
 debruitage(img)
 
 #Affichage
