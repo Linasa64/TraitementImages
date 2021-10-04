@@ -11,17 +11,15 @@ from skimage import io
 
 img = io.imread("image1_bruitee_snr_10.8656.png")
 
-
 def debruitageMoyenne(img):
-    for line in range(1, (len(img)-2)):
-        for col in range(1, len(img)-2):
+    for line in range(1, (len(img)-1)):
+        for col in range(1, len(img)-1):
             img[line, col] = moyenne_pixels(line, col)
             
 def debruitageMediane(img):
-    for line in range(1, (len(img)-2)):
-        for col in range(1, len(img)-2):
+    for line in range(1, (len(img)-1)):
+        for col in range(1, len(img)-1):
             img[line, col] = mediane_pixels(line, col)
-
 
 def moyenne_pixels(x, y):
     sum = 0
@@ -38,14 +36,14 @@ def mediane_pixels(x, y):
         for col in range((y-1), (y+2)):
             liste.append(int(img[line, col]))
     liste.sort()
-    return liste[5]
+    return liste[4]
 
 def afficherCarre(x, y):
     for line in range((x-1), (x+2)):
         for col in range((y-1), (y+2)):
             print(img[line, col])
  
-            
+          
 debruitageMediane(img)
 
 ## CALCUL SNR
@@ -68,11 +66,6 @@ print("pSignal : ", pSignal)
 print("pBruit : ", pBruit)
 snr = 10*log((pSignal/pBruit), 10)
 print("SNR: ", snr)
-
-# debruitageMoyenne(img)
-# afficherCarre(10, 10)
-# print()
-# print(mediane_pixels(10, 10))
 
 
 #Affichage
