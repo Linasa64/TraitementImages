@@ -47,10 +47,10 @@ img = io.imread("image2_reference.png")
 
 #CALCUL SNR
 
-from math import log, log10
+from math import log
 
 imgRef = io.imread("image1_reference.png")
-imgBruit = io.imread("testDebruitageLiMediane.png")
+imgBruit = io.imread("image1_bruitee_snr_10.8656.png")
 
 pSignal = 0
 pBruit = 0
