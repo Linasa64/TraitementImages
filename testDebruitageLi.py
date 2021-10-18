@@ -8,6 +8,8 @@ Created on Mon Sep 20 11:57:09 2021
 import matplotlib.cm as cm
 from skimage import io
 import matplotlib.pyplot as plt
+import numpy as np
+import math as m
 
 
 img = io.imread("image1_bruitee_snr_10.8656.png")
@@ -44,8 +46,8 @@ def afficherCarre(x, y):
     for line in range((x-1), (x+2)):
         for col in range((y-1), (y+2)):
             print(img[line, col])
- 
-          
+            
+
 debruitageMediane(img)
 
 ## CALCUL SNR
