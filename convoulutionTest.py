@@ -15,30 +15,26 @@ import math as m
 img = io.imread("image1_bruitee_snr_10.8656.png")
 
 def filtreRehausseur(img, nbPixelsCoté):
-    # rehausseurM = ([[1/9, 1/9, 1/9],
-    #                [1/9, 1/9, 1/9],
-    #                [1/9, 1/9, 1/9]])
-    
-    # rehausseurGaussien = ([[1/16, 1/8, 1/16],
-    #                        [1/8, 1/4, 1/8],
-    #                        [1/16, 1/8, 1/16]])
-    
-    # rehausseurEdgeDetector = ([[-1, -1, -1],
-    #                            [-1, 8, -1],
-    #                            [-1, -1, -1]])
-    
     filtreGauss = convoGauss(nbPixelsCoté)
-    
+    sum=0
     for line in range(nbPixelsCoté, len(img)-nbPixelsCoté):
         for col in range(nbPixelsCoté, len(img)-nbPixelsCoté):
-                sum = 0
-                for line2 in range(0, 3):
-                    for col2 in range(0, 3):
-                        #print("line : ", line, " / col : ", col)
-                        ptm = pixelToMatrice(line, col, nbPixelsCoté)
-                        sum += ptm[line2][col2]*filtreGauss[line2][col2]
+                ptm = pixelToMatrice(line, col, nbPixelsCoté)
+                ptmGauss = ptm*filtreGauss
+                #afficherCarre(ptmGauss, nbPixelsCoté)
+                for line2 in range(0, nbPixelsCoté*2+1):
+                    for col2 in range(0, nbPixelsCoté*2+1):
+                        sum = sum + ptmGauss[line2][col2]
                 img[line, col] = sum
+                sum=0
 
+def afficherCarre(mat, nbPixelsCoté):
+    for line in range((0), (nbPixelsCoté*2+1)):
+        print(" ")
+        for col in range((0), (nbPixelsCoté*2+1)):
+            print(img[line, col], end=" ")
+    print ("\n\n")
+    
 def pixelToMatrice(x, y, nbPixelsCoté):
     entourage = np.zeros((2*nbPixelsCoté+1, 2*nbPixelsCoté+1))
     indX = x-nbPixelsCoté
@@ -48,7 +44,6 @@ def pixelToMatrice(x, y, nbPixelsCoté):
     
     while(indX<=x+nbPixelsCoté):
         while(indY<=y+nbPixelsCoté):
-            #print("indX :", indX, " / indY :", indY, " / matX: ", matX, " / matY :", matY)
             entourage[matX][matY] = img[indX, indY]
             indY+=1
             matY+=1
@@ -57,7 +52,8 @@ def pixelToMatrice(x, y, nbPixelsCoté):
         indY=y-nbPixelsCoté
         matY=0
     return entourage
-            
+      
+      
 def convoGauss(nbPixelsCoté):
     sigma = 0.5 #importance des pixels sur le côté par rapport à celui central
     h = np.zeros((2*nbPixelsCoté+1, 2*nbPixelsCoté+1))
@@ -68,11 +64,8 @@ def convoGauss(nbPixelsCoté):
             somme += h[line][col]
     h = h/somme
     return h
- 
-          
 
-
-filtreRehausseur(img, 7)
+filtreRehausseur(img, 1)
 
 
 ## CALCUL SNR
@@ -97,14 +90,11 @@ snr = 10*log((pSignal/pBruit), 10)
 print("SNR: ", snr)
 
 
-
 #Affichage
-
-
-imgRef = io.imread("image1_reference.png")
-imgBruit = io.imread("image1_bruitee_snr_10.8656.png")
+# io.imshow(img)
+imgRefBruit = io.imread("image1_bruitee_snr_10.8656.png")
 fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(10, 300))
-axes[0].imshow(imgBruit, cmap=cm.gray)
+axes[0].imshow(imgRefBruit, cmap=cm.gray)
 axes[0].set_title('Bruitée')
 axes[1].imshow(img, cmap=cm.gray)
 axes[1].set_title('Débruitée')
