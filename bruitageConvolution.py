@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Oct  4 12:04:00 2021
-
-@author: aubin
-"""
-
 import matplotlib.cm as cm
 import numpy as np
 from skimage import io
@@ -14,7 +7,11 @@ import math as m
 
 img = io.imread("image1_bruitee_snr_10.8656.png")
 
-def filtreRehausseur(img, nbPixelsCoté):
+##### DEFINITION DES FONCTIONS #####
+
+
+## Applique le filtre par convolution à l'image
+def filtreConvolution(img, nbPixelsCoté):
     filtreGauss = convoGauss(nbPixelsCoté)
     sum=0
     for line in range(nbPixelsCoté, len(img)-nbPixelsCoté):
@@ -28,6 +25,7 @@ def filtreRehausseur(img, nbPixelsCoté):
                 img[line, col] = sum
                 sum=0
 
+## Fonction permettant d'afficher l'environnement d'un pixel [DEBUGGAGE]
 def afficherCarre(mat, nbPixelsCoté):
     for line in range((0), (nbPixelsCoté*2+1)):
         print(" ")
@@ -35,6 +33,7 @@ def afficherCarre(mat, nbPixelsCoté):
             print(img[line, col], end=" ")
     print ("\n\n")
     
+## Renvoie une matrice des pixels environnant un pixel donné
 def pixelToMatrice(x, y, nbPixelsCoté):
     entourage = np.zeros((2*nbPixelsCoté+1, 2*nbPixelsCoté+1))
     indX = x-nbPixelsCoté
@@ -53,7 +52,7 @@ def pixelToMatrice(x, y, nbPixelsCoté):
         matY=0
     return entourage
       
-      
+## Renvoie la matrice de connvolution correspondant au nbre de pixels environnants donnés      
 def convoGauss(nbPixelsCoté):
     sigma = 0.5 #importance des pixels sur le côté par rapport à celui central
     h = np.zeros((2*nbPixelsCoté+1, 2*nbPixelsCoté+1))
@@ -65,12 +64,13 @@ def convoGauss(nbPixelsCoté):
     h = h/somme
     return h
 
-filtreRehausseur(img, 1)
+nbPixels = 2
+filtreConvolution(img, nbPixels)
 
 
-## CALCUL SNR
+##### CALCUL SNR #####
 
-from math import log, log10
+from math import log
 
 imgRef = io.imread("image1_reference.png")
 imgBruit = img
@@ -84,14 +84,12 @@ for line in range(0, len(imgBruit)):
         pBruit = pBruit + (int(imgBruit[line, col])-int(imgRef[line, col]))**2
  
 
-print("pSignal : ", pSignal)
-print("pBruit : ", pBruit)
 snr = 10*log((pSignal/pBruit), 10)
 print("SNR: ", snr)
 
 
-#Affichage
-# io.imshow(img)
+##### AFFICHAGE #####
+
 imgRefBruit = io.imread("image1_bruitee_snr_10.8656.png")
 fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(10, 300))
 axes[0].imshow(imgRefBruit, cmap=cm.gray)
@@ -100,5 +98,7 @@ axes[1].imshow(img, cmap=cm.gray)
 axes[1].set_title('Débruitée')
 axes[2].imshow(imgRef, cmap=cm.gray)
 axes[2].set_title('Originale')
+plt.text(3, 3, "DEBRUITAGE CONVOLUTION, " + str(nbPixels) + " PIXELS ENVIONNANTS\n", dict(color='red', x=-750, y=-80))
+plt.text(3, 3, "SNR = " + str(snr), dict(color='black', x=-550, y=-80))
 
-io.show   
+io.show
