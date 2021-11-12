@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
 
-img = io.imread("image2_reference.png")
+img = io.imread("./img/image2_reference.png")
 
 
 # ALGO SALT AND PEPPER
@@ -22,7 +22,7 @@ for line in range(len(img)):
 
 from math import log
 
-imgRef = io.imread("image2_reference.png")
+imgRef = io.imread("./img/image2_reference.png")
 imgBruit = img
 
 

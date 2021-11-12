@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 
 
-img = io.imread("image1_bruitee_snr_10.8656.png")
+img = io.imread("./img/image1_bruitee_snr_10.8656.png")
 
 ##### DEFINITION DES FONCTIONS #####
 
@@ -52,7 +52,7 @@ choix = "MEDIANE"
 
 from math import log
 
-imgRef = io.imread("image1_reference.png")
+imgRef = io.imread("./img/image1_reference.png")
 imgBruit = img
 
 pSignal = 0
@@ -69,7 +69,7 @@ print("SNR: ", snr)
 
 ##### AFFICHAGE #####
 
-img = io.imread("image1_bruitee_snr_10.8656.png")
+img = io.imread("./img/image1_bruitee_snr_10.8656.png")
 fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(10, 300))
 axes[0].imshow(img, cmap=cm.gray)
 axes[0].set_title('Bruitée')
