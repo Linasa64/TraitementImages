@@ -2,10 +2,10 @@ from skimage import io
 from random import randint, random
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
+import numpy as np
 
 
 img = io.imread("./img/image2_reference.png")
-
 
 # ALGO SALT AND PEPPER
 
@@ -24,7 +24,6 @@ from math import log
 
 imgRef = io.imread("./img/image2_reference.png")
 imgBruit = img
-
 
 pSignal = 0
 pBruit = 0

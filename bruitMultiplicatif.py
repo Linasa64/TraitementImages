@@ -9,13 +9,17 @@ img = io.imread("./img/image2_reference.png")
 
 # ALGO BRUIT MULTIPLICATIF
 
+x = 1.4
+
 for line in range(len(img)):
     for col in range(len(img)):
         if (randint(1, 3) == 1):
-            if (img[line, col] * (1-1.1)<0):
+            if (img[line, col] *(x)<0):
                 img[line, col] = 0
-            else :
-                img[line, col] = img[line, col] * (1-1.5)
+            elif(img[line, col] *(x)>255):
+                img[line, col] = 255
+            else:
+                img[line, col] = img[line, col] * (x)
 
 
 #CALCUL SNR
@@ -46,6 +50,7 @@ axes[0].set_title('Bruitée')
 axes[1].imshow(imgRef, cmap=cm.gray)
 axes[1].set_title('Référence')
 plt.text(3, 3, "BRUIT MULTIPLICATIF\n", dict(color='red', x=-85, y=-30))
-plt.text(3, 3, "SNR = " + str(snr), dict(color='black', x=-100, y=-30))
+plt.text(3, 3, "x = " + str(x) + "\n", dict(color='green', x=-50, y=-15))
+plt.text(3, 3, "SNR = " + str(snr), dict(color='black', x=-100, y=-12))
 
 io.show   
