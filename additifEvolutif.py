@@ -63,5 +63,5 @@ def graphe(f,a,b,N):
     plt.show()  # affichage
        
 # programme principal
-graphe(g, 10, 1000, 10)
+graphe(g, -10, 100, 10)
 

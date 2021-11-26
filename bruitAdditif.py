@@ -12,7 +12,7 @@ img = io.imread("./img/image2_reference.png")
 for line in range(len(img)):
     for col in range(len(img)):
         if (randint(1, 2) == 1):
-            r = randint(0, 100)
+            r = randint(0, 100)-50
             if (img[line, col] + r < 0):
               img[line, col] = 0
             elif (img[line, col] + r > 255) :
