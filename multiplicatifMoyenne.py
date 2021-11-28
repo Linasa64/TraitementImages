@@ -10,8 +10,6 @@ img = io.imread("./img/image2_reference.png")
 
 
 # ALGO BRUIT MULTIPLICATIF
-
-
 for line in range(len(img)):
     for col in range(len(img)):
         x = randint(0, 100)-50

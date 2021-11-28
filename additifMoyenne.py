@@ -9,7 +9,7 @@ import math as m
 img = io.imread("./img/image2_reference.png")
 
 
-# # ALGO BRUIT ADDITIF
+## ALGO BRUIT ADDITIF
 
 for line in range(len(img)):
     for col in range(len(img)):

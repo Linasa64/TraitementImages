@@ -11,7 +11,7 @@ img = io.imread("./img/image2_reference.png")
 
 for line in range(len(img)):
     for col in range(len(img)):
-        if (randint(1, 10) == 1):
+        if (randint(1, 5) == 1):
             if (random() <0.5):
                 img[line, col] = 0
             else:
